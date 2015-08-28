@@ -4,45 +4,68 @@ var scan = require('../index.js'),
     test = require('tape');
 
 function dummyStrings() {
-    var __ = function() {},
-        __n = __;
+    var intl = {};
+    intl.formatMessage = function () {
+    };
+    intl.formatHTMLMessage = function () {
+    };
 
-    __('This is a singular translation %s', 'replacement');
-    __('Plain old singluar');
-    __n('single', 'plural', 1, 'cats');
-    __n('error, but it works');
-    __('one on the same line');
-    __('as the other');
-    __('even mixing goes');
-    __n('like this', 'or that', 3);
-    __('duplicate strings are filtered');
-    __('duplicate strings are filtered');
-    __('duplicate strings are filtered');
-    __("Oh, and by the way: don't fail on this!");
-    __('Oh, and by the way: this don\'t fly either!');
-    __n('What\'s in a count', 'Won\'t you count it', 3);
+    intl.formatMessage(`This
+    is a singular
+    tran
+    slation %s`, 'replacement');
+
+    intl.formatHTMLMessage(`<b>This</b>
+    is a singular
+    tran
+    slation %s`, 'replacement');
+
+    /**
+     <!--name:board.general.quick.add-->
+     <div class="general-quick-add">
+     <div role="action-quick-add" class="tau-btn tau-btn-big tau-success tau-btn-quick-add"
+     data-title="<%=fn.intl.formatMessage('Quick add work and people')%>">
+     <span class="tau-btn__text"><%=fn.intl.formatHTMLMessage("
+     {blockersCount, select,
+0 {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}.}
+other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}, <i>{blockersCount}</i> of them {blockersCount, plural, one {is a blocker} other {are blockers}}.}}
+     The project might be deleted or you do not have sufficient permissions.
+     ",{blockersCount:3,relationType:'fdsafdsa',count:3}
+     )%></span>
+     </div>
+     </div>
+     */
+
+    /**
+     *
+     * <div> {{formatMessage("ystart")}} </div>
+     *
+     */
+
+    /**
+     *
+     * <div> {{formatHTMLMessage("yy<b>start</b>")}} </div>
+     *
+     */
+
 }
 
-test('scanner', function(assert) {
+
+
+test('scanner', function (assert) {
     var expect = [
-        'Oh, and by the way: don\'t fail on this!',
-        'Oh, and by the way: this don\'t fly either!',
-        'Plain old singluar',
-        'This is a singular translation %s',
-        'What\'s in a count',
-        'Won\'t you count it',
-        'as the other',
-        'duplicate strings are filtered',
-        'error, but it works',
-        'even mixing goes',
-        'like this',
-        'one on the same line',
-        'or that',
-        'plural',
-        'single'
+        '<b>This</b> is a singular tran slation %s',
+        'Quick add work and people',
+        `This
+         is a singular
+        tran
+        slation %s`.replace(/\\'/, '\'').replace(/\s+/gm, ' ').trim(),
+        "ystart",
+        "yy<b>start</b>",
+        "{blockersCount, select, 0 {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}.} other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}, <i>{blockersCount}</i> of them {blockersCount, plural, one {is a blocker} other {are blockers}}.}} The project might be deleted or you do not have sufficient permissions.",
     ];
 
-    scan(__dirname + '/../test/*', function(err, strings) {
+    scan(__dirname + '/../test/*', function (err, strings) {
         assert.deepEqual(strings.sort(), expect.sort(), 'Retrieved expected strings');
         assert.end();
     });
