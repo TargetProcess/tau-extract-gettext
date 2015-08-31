@@ -1,3 +1,8 @@
-'use strict';
-
-module.exports = require('./lib/scan');
+var config = require('./config/config.transifex');
+var trasifex = require('tau-transifex');
+module.exports = {
+    scan: require('./lib/scan'),
+    pushToTransifex: function (config, strings) {
+        return trasifex(config).updateResourceFile(strings);
+    }
+};
