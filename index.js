@@ -1,4 +1,3 @@
-var config = require('./config/config.transifex');
 var trasifex = require('tau-transifex');
 module.exports = {
     scan: require('./lib/scan'),
