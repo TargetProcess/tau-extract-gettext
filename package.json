@@ -1,17 +1,17 @@
 {
   "name": "tau-extract-gettext",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extract gettext strings from intl.formatMessage('literal') and intl.formatHtmlMessage('<b>literal</b>') functions in any source",
   "main": "index.js",
   "bin": {
-    "extract-gettext": "./bin/extract-gettext.js"
+    "tau-extract-gettext": "./bin/extract-gettext.js"
   },
   "scripts": {
     "test": "node test/scan.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mvhenten/extract-gettext.git"
+    "url": "https://github.com/TargetProcess/tau-extract-gettext.git"
   },
   "keywords": [
     "gettext",
