@@ -26,8 +26,6 @@
   },
   "homepage": "https://github.com/TargetProcess/tau-extract-gettext",
   "devDependencies": {
-    "js-beautify": "^1.5.1",
-    "jshint": "^2.5.5",
     "tape": "^2.14.0"
   },
   "dependencies": {
