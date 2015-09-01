@@ -70,3 +70,10 @@ test('scanner', function (assert) {
         assert.end();
     });
 });
+
+test('files not found', function (assert) {
+    scan(__dirname + '/../tests/*', function (err, strings) {
+        assert.equal(err, 'Files not found', 'Retrieved expected strings');
+        assert.end();
+    });
+});

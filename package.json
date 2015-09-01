@@ -1,6 +1,6 @@
 {
   "name": "tau-extract-gettext",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Extract gettext strings from intl.formatMessage('literal') and intl.formatHtmlMessage('<b>literal</b>') functions in any source",
   "main": "index.js",
   "bin": {
@@ -26,13 +26,13 @@
   },
   "homepage": "https://github.com/TargetProcess/tau-extract-gettext",
   "devDependencies": {
-    "tape": "^2.14.0"
+    "tape": "^4.2.0"
   },
   "dependencies": {
-    "async": "^0.9.0",
+    "async": "^1.4.2",
     "commander": "^2.3.0",
-    "glob": "^4.0.5",
+    "glob": "5.0.14",
     "lex": "^1.7.6",
-    "lodash": "^2.4.1"
+    "lodash": "^3.10.1"
   }
 }
