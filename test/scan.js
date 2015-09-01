@@ -1,6 +1,6 @@
 'use strict';
 
-var scan = require('../index.js').scan,
+var scan = require('../index.js'),
     test = require('tape');
 
 function dummyStrings() {
