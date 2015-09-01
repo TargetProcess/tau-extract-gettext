@@ -1,6 +1,6 @@
 {
   "name": "tau-extract-gettext",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extract gettext strings from intl.formatMessage('literal') and intl.formatHtmlMessage('<b>literal</b>') functions in any source",
   "main": "index.js",
   "bin": {
