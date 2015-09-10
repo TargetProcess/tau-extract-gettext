@@ -1,5 +1,5 @@
 'use strict';
-
+// intlScope: test_single_comment_in_js_file
 var scan = require('../index.js'),
     test = require('tape');
 
@@ -51,7 +51,6 @@ other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation
 }
 
 
-
 test('scanner', function (assert) {
     var expect = [
         '<b>This</b> is a singular tran slation %s',
@@ -66,14 +65,28 @@ test('scanner', function (assert) {
     ];
 
     scan(__dirname + '/../test/*', function (err, strings) {
-        assert.deepEqual(strings.sort(), expect.sort(), 'Retrieved expected strings');
+        assert.deepEqual(strings['test_single_comment_in_js_file'].sort(), expect.sort(), 'Retrieved expected strings');
         assert.end();
     });
 });
 
 test('files not found', function (assert) {
     scan(__dirname + '/../tests/*', function (err, strings) {
-        assert.equal(err, 'Files not found', 'Retrieved expected strings');
+        assert.equal(err, 'Files not found', 'Throw error if files not found');
+        assert.end();
+    });
+});
+
+test('extract scope', function (assert) {
+    scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
+        var expected = {
+            "scope_for_component": ["string from model", "test jsx"],
+            "scope_for_folder": ["test", "test1"],
+            "override_scope_file": ["test2"],
+            "default": ["without scope"],
+            "custom_js_scope": ["custom js scope"]
+        };
+        assert.deepEqual(strings, expected, 'Retrieved expected strings');
         assert.end();
     });
 });
