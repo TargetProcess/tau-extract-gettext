@@ -80,7 +80,7 @@ test('files not found', function (assert) {
 test('extract scope', function (assert) {
     scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
         var expected = {
-            "scope_for_component": ["string from model", "test jsx"],
+            "scope_for_component": ["string from model", 'nested message', "test jsx"],
             "scope_for_folder": ["test", "test1"],
             "override_scope_file": ["test2"],
             "default": ["without scope"],
