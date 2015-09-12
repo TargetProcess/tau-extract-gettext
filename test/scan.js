@@ -80,7 +80,7 @@ test('files not found', function (assert) {
 test('extract scope', function (assert) {
     scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
         var expected = {
-            "scope_for_component": ["string from model", 'nested message', 'test {FormattedMessage}', 'test {FormattedMessage2}', "test jsx"],
+            "scope_for_component": ["string from model", 'nested message', 'Add rule FormattedMessage', 'test {FormattedMessage}', 'test {FormattedMessage2}', "test jsx"],
             "scope_for_folder": ["test", "test1"],
             "override_scope_file": ["test2"],
             "default": ["deep nested message", "without scope"],
@@ -93,6 +93,7 @@ test('extract scope', function (assert) {
 
 test('scanner jsx file', function (assert) {
     var expect = [
+        'Add rule FormattedMessage',
         'test {FormattedMessage}',
         'test {FormattedMessage2}'
     ];
