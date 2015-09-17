@@ -83,7 +83,7 @@ test('extract scope', function (assert) {
             "scope_for_component": ["string from model", 'nested message', 'Add rule FormattedMessage', 'test {FormattedMessage}', 'test {FormattedMessage2}', "test jsx"],
             "scope_for_folder": ["test", "test1"],
             "override_scope_file": ["test2"],
-            "default": ["deep nested message", "without scope"],
+            "none": ["deep nested message", "without scope"],
             "custom_js_scope": ["custom js scope"]
         };
         assert.deepEqual(strings, expected, 'Retrieved expected strings');
