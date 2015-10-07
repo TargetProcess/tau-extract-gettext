@@ -44,7 +44,7 @@ other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation
 
     /**
      *
-     * <div> {{formatHTMLMessage("yy<b>start</b>")}} </div>
+     * <div> {{formatHTMLMessage("yy<b>start (d)</b>")}} </div>
      *
      */
 
@@ -60,7 +60,7 @@ test('scanner', function (assert) {
         tran
         slation %s`.replace(/\\'/, '\'').replace(/\s+/gm, ' ').trim(),
         "ystart",
-        "yy<b>start</b>",
+        "yy<b>start (d)</b>",
         "{blockersCount, select, 0 {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}.} other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}, <i>{blockersCount}</i> of them {blockersCount, plural, one {is a blocker} other {are blockers}}.}} The project might be deleted or you do not have sufficient permissions.",
     ];
 
@@ -81,7 +81,7 @@ test('extract scope', function (assert) {
     scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
         var expected = {
             "scope_for_component": ["string from model", 'nested message', 'Add rule FormattedMessage', 'test {FormattedMessage}', 'test {FormattedMessage2}', "test jsx"],
-            "scope_for_folder": ["test", "test1"],
+            "scope_for_folder": ["Start typing(d) name(s) or email(s)", "test1"],
             "override_scope_file": ["test2"],
             "none": ["deep nested message", "without scope"],
             "custom_js_scope": ["custom js scope"]
