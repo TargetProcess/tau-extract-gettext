@@ -83,7 +83,7 @@ test('extract scope', function (assert) {
             "scope_for_component": ["string from model", 'nested message', 'Add rule FormattedMessage', 'test {FormattedMessage}', 'test {FormattedMessage2}', "test jsx"],
             "scope_for_folder": ["Start typing(d) name(s) or email(s)", "test1"],
             "override_scope_file": ["test2"],
-            "none": ["deep nested message", "without scope"],
+            "none": ["deep nested message", "Initial Effort", "Initial Effort {value}", "without scope"],
             "custom_js_scope": ["custom js scope"]
         };
         assert.deepEqual(strings, expected, 'Retrieved expected strings');
@@ -100,6 +100,18 @@ test('scanner jsx file', function (assert) {
 
     scan(__dirname + '/../test/scopeTest/component/views/fomattedMessage.jsx', function (err, strings) {
         assert.deepEqual(strings['scope_for_component'].sort(), expect.sort(), 'Retrieved expected strings');
+        assert.end();
+    });
+});
+
+test('scanner jquery template file', function (assert) {
+    var expect = [
+        'Initial Effort',
+        'Initial Effort {value}'
+    ];
+
+    scan(__dirname + '/../test/scopeTest/jquery.template.js', function (err, strings) {
+        assert.deepEqual(strings['none'].sort(), expect.sort(), 'Retrieved expected strings');
         assert.end();
     });
 });
