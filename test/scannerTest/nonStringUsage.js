@@ -1,3 +1,4 @@
+// intlScope: nonStringUsage
 module.exports = {
     name: intl.formatMessage('token'),
     template: [

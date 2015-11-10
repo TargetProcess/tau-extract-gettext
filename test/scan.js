@@ -16,8 +16,14 @@ test('scanner', function(assert) {
             "yy<b>start (d)</b>",
             "{blockersCount, select, 0 {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}.} other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation} other {relations}}, <i>{blockersCount}</i> of them {blockersCount, plural, one {is a blocker} other {are blockers}}.}} The project might be deleted or you do not have sufficient permissions.",
         ],
-        none: [
+        nonStringUsage: [
             'token'
+        ],
+        multilineUsages: [
+            'token 1', 'token 2', 'token 3',
+            '{data} token 1', '{data} token 2', '{data} token 3', '{data} token 4',
+            'jq token 1', 'jq token 2', 'jq token 3',
+            'jq {data} token 1', 'jq {data} token 2', 'jq {data} token 3', 'jq {data} token 4',
         ]
     };
 
