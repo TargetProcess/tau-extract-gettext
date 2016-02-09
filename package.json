@@ -32,8 +32,8 @@
     "tape": "^4.2.0"
   },
   "dependencies": {
-    "acorn": "^2.4.0",
-    "acorn-jsx": "^2.0.0",
+    "acorn": "2.7.0",
+    "acorn-jsx": "2.0.1",
     "async": "^1.4.2",
     "commander": "^2.3.0",
     "glob": "5.0.14",

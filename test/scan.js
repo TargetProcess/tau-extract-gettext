@@ -50,6 +50,7 @@ test('extract scope', function(assert) {
                 'Add rule FormattedMessage',
                 'test {FormattedMessage}',
                 'test {FormattedMessage2}',
+                'test jsx with import',
                 "test jsx"],
             "scope_for_folder": ["Start typing(d) name(s) or email(s)", "test1"],
             "override_scope_file": ["test2"],
