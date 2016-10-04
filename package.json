@@ -1,7 +1,7 @@
 {
   "name": "tau-extract-gettext",
   "version": "0.4.1",
-  "description": "Extract gettext strings from intl.formatMessage('literal') and intl.formatHtmlMessage('<b>literal</b>') functions in any source",
+  "description": "Extract message strings from intl.formatMessage('literal'), intl.formatHtmlMessage('<b>literal</b>') functions, and JSX component <FormattedMessage message=\"literal\" />",
   "main": "index.js",
   "bin": {
     "tau-extract-gettext": "./bin/extract-gettext.js"
@@ -19,7 +19,8 @@
     "extract",
     "scan"
   ],
-  "author": [
+  "author": "Matthijs van Henten",
+  "contributors": [
     "taucraft",
     "Matthijs van Henten"
   ],
