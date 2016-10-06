@@ -1,3 +1,4 @@
+/*jshint quotmark:false*/
 'use strict';
 var scan = require('../index.js');
 var test = require('tape');
@@ -55,7 +56,14 @@ test('extract scope', function(assert) {
             "scope_for_folder": ["Start typing(d) name(s) or email(s)", "test1"],
             "override_scope_file": ["test2"],
             "none": ["deep nested message", "Initial Effort", "Initial Effort {value}", "without {test} scope"],
-            "custom_js_scope": ["custom js scope"]
+            "custom_js_scope": ["custom js scope"],
+            "custom_js_scope_2": [
+                "whole string",
+                "concatenated string",
+                "concatenated string with {param}",
+                "concatenated multiline string",
+                "crack" //TODO should be "crack me')"
+            ]
         };
         assert.deepEqual(strings, expected, 'Retrieved expected strings');
         assert.end();
