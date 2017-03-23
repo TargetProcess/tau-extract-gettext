@@ -1,37 +1,17 @@
 {
   "name": "tau-extract-gettext",
-  "version": "0.4.1",
-  "description": "Extract message strings from intl.formatMessage('literal'), intl.formatHtmlMessage('<b>literal</b>') functions, and JSX component <FormattedMessage message=\"literal\" />",
-  "main": "index.js",
+  "version": "0.5.1",
+  "author": "Matthijs van Henten",
   "bin": {
     "tau-extract-gettext": "./bin/extract-gettext.js"
   },
-  "scripts": {
-    "test": "node test/scan.js"
+  "bugs": {
+    "url": "https://github.com/TargetProcess/tau-extract-gettext/issues"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TargetProcess/tau-extract-gettext.git"
-  },
-  "keywords": [
-    "gettext",
-    "i18n",
-    "extract",
-    "scan"
-  ],
-  "author": "Matthijs van Henten",
   "contributors": [
     "taucraft",
     "Matthijs van Henten"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TargetProcess/tau-extract-gettext/issues"
-  },
-  "homepage": "https://github.com/TargetProcess/tau-extract-gettext",
-  "devDependencies": {
-    "tape": "^4.2.0"
-  },
   "dependencies": {
     "acorn": "2.7.0",
     "acorn-jsx": "2.0.1",
@@ -40,5 +20,25 @@
     "glob": "5.0.14",
     "lex": "^1.7.6",
     "lodash": "^3.10.1"
+  },
+  "description": "Extract message strings from intl.formatMessage('literal'), intl.formatHtmlMessage('<b>literal</b>') functions, and JSX component <FormattedMessage message=\"literal\" />",
+  "devDependencies": {
+    "tape": "^4.2.0"
+  },
+  "homepage": "https://github.com/TargetProcess/tau-extract-gettext",
+  "keywords": [
+    "gettext",
+    "i18n",
+    "extract",
+    "scan"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TargetProcess/tau-extract-gettext.git"
+  },
+  "scripts": {
+    "test": "node test/scan.js"
   }
 }
