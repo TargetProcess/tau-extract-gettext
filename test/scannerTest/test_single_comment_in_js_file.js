@@ -1,6 +1,6 @@
 // intlScope: test_single_comment_in_js_file
-var scan = require('../index.js'),
-    test = require('tape');
+var scan = require('../index.js');
+var test = require('tape');
 
 function dummyStrings() {
     var intl = {};
@@ -37,14 +37,15 @@ other {You can't see <b>{count}</b> {relationType} {count, plural, one {relation
 
     /**
      *
-     * <div> {{formatMessage("ystart")}} </div>
+     * <div> {{formatMessage("Text message in JSDoc")}} </div>
      *
      */
 
     /**
      *
-     * <div> {{formatHTMLMessage("yy<b>start (d)</b>")}} </div>
+     * <div> {{formatHTMLMessage("HTML message in <b>JSDoc</b>")}} </div>
      *
      */
 
+    intl.formatMessage('The changes you\'ve made can\'t be saved');
 }
