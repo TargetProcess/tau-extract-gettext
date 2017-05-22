@@ -1,10 +1,13 @@
-/*jshint quotmark:false*/
+/*jshint quotmark:false,sub:true*/
 'use strict';
-var scan = require('../index.js');
+
 var test = require('tape');
 var _ = require('lodash');
+var scan = require('../index.js');
 
-test('scanner', function(assert) {
+var normalize = stringsPerScope => _.mapValues(stringsPerScope, strings => strings.sort());
+
+test('scan', function(assert) {
     var expected = {
         test_single_comment_in_js_file: [
             '<b>This</b> is a singular tran slation %s',
@@ -29,16 +32,14 @@ test('scanner', function(assert) {
         ]
     };
 
-    var normalize = stringsPerScope => _.mapValues(stringsPerScope, strings => strings.sort());
-
     scan(__dirname + '/../test/scannerTest/*', function(err, strings) {
         assert.deepEqual(normalize(strings), normalize(expected), 'Retrieved expected strings');
         assert.end();
     });
 });
 
-test('files not found', function(assert) {
-    scan(__dirname + '/../tests/*', function(err, strings) {
+test('files not found', function (assert) {
+    scan(__dirname + '/../tests/*', function (err, strings) {
         assert.equal(err, 'Files not found', 'Throw error if files not found');
         assert.end();
     });
@@ -48,18 +49,23 @@ test('extract scope', function(assert) {
     scan(__dirname + '/../test/scopeTest/**', function(err, strings) {
         var expected = {
             "scope_for_component": [
-                "string from model",
+                'string from model',
                 'nested message',
-                'Add rule FormattedMessage',
+                'FormattedMessage message',
+                'MyComponent message after FormattedMessage',
                 'test {FormattedMessage}',
                 'test {FormattedMessage2}',
+                'Help Desk Portal URL {example}',
+                '(Ex: http://helpdesk.yourdomain.com)',
+                '(type the new password if you want to change it)',
+                'Password {hint}',
                 'test jsx with import',
-                "test jsx"
+                'test jsx'
             ],
-            "scope_for_folder": ["Start typing(d) name(s) or email(s)", "test1"],
-            "override_scope_file": ["test2"],
-            "none": ["deep nested message", "Initial Effort", "Initial Effort {value}", "without {test} scope"],
-            "custom_js_scope": ["custom js scope"],
+            "scope_for_folder": ['Start typing(d) name(s) or email(s)', 'test1'],
+            "override_scope_file": ['test2'],
+            "none": ['deep nested message', 'Initial Effort', 'Initial Effort {value}', 'without {test} scope'],
+            "custom_js_scope": ['custom js scope'],
             "custom_js_scope_2": [
                 "whole string",
                 "concatenated string",
@@ -73,27 +79,32 @@ test('extract scope', function(assert) {
     });
 });
 
-test('scanner jsx file', function(assert) {
-    var expect = [
-        'Add rule FormattedMessage',
-        'test {FormattedMessage}',
-        'test {FormattedMessage2}'
+test('scan ES5 JSX file', function (assert) {
+    var expected = [
+        '(Ex: http://helpdesk.yourdomain.com)',
+        '(type the new password if you want to change it)',
+        'FormattedMessage message',
+        'Help Desk Portal URL {example}',
+        'MyComponent message after FormattedMessage', //FIXME this is a bug
+        'Password {hint}',
+        'test {FormattedMessage2}',
+        'test {FormattedMessage}'
     ];
 
-    scan(__dirname + '/../test/scopeTest/component/views/fomattedMessage.jsx', function(err, strings) {
-        assert.deepEqual(strings['scope_for_component'].sort(), expect.sort(), 'Retrieved expected strings');
+    scan(__dirname + '/../test/scopeTest/component/views/formattedMessage.jsx', function (err, strings) {
+        assert.deepEqual(strings['scope_for_component'].sort(), expected.sort(), 'Retrieved expected strings');
         assert.end();
     });
 });
 
-test('scanner jquery template file', function(assert) {
-    var expect = [
+test('scan jQuery template file', function(assert) {
+    var expected = [
         'Initial Effort',
         'Initial Effort {value}'
     ];
 
     scan(__dirname + '/../test/scopeTest/jquery.template.js', function(err, strings) {
-        assert.deepEqual(strings['none'].sort(), expect.sort(), 'Retrieved expected strings');
+        assert.deepEqual(strings['none'].sort(), expected.sort(), 'Retrieved expected strings');
         assert.end();
     });
 });
