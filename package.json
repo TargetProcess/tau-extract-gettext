@@ -1,6 +1,6 @@
 {
   "name": "tau-extract-gettext",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Matthijs van Henten",
   "bin": {
     "tau-extract-gettext": "./bin/extract-gettext.js"
@@ -13,8 +13,8 @@
     "Matthijs van Henten"
   ],
   "dependencies": {
-    "acorn": "2.7.0",
-    "acorn-jsx": "2.0.1",
+    "acorn": "5.0.3",
+    "acorn-jsx": "4.0.1",
     "async": "^1.4.2",
     "commander": "^2.3.0",
     "glob": "5.0.14",
