@@ -3,11 +3,13 @@
 
 var test = require('tape');
 var _ = require('lodash');
+var fs = require('fs');
 var scan = require('../index.js');
+var parse = require('../lib/parse.js');
 
 var normalize = stringsPerScope => _.mapValues(stringsPerScope, strings => strings.sort());
 
-test('scan', function(assert) {
+test('scan', function (assert) {
     var expected = {
         test_single_comment_in_js_file: [
             '<b>This</b> is a singular tran slation %s',
@@ -32,7 +34,7 @@ test('scan', function(assert) {
         ]
     };
 
-    scan(__dirname + '/../test/scannerTest/*', function(err, strings) {
+    scan(__dirname + '/../test/scannerTest/*', function (err, strings) {
         assert.deepEqual(normalize(strings), normalize(expected), 'Retrieved expected strings');
         assert.end();
     });
@@ -45,8 +47,8 @@ test('files not found', function (assert) {
     });
 });
 
-test('extract scope', function(assert) {
-    scan(__dirname + '/../test/scopeTest/**', function(err, strings) {
+test('extract scope', function (assert) {
+    scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
         var expected = {
             "scope_for_component": [
                 'string from model',
@@ -97,14 +99,49 @@ test('scan ES5 JSX file', function (assert) {
     });
 });
 
-test('scan jQuery template file', function(assert) {
+test('scan jQuery template file', function (assert) {
     var expected = [
         'Initial Effort',
         'Initial Effort {value}'
     ];
 
-    scan(__dirname + '/../test/scopeTest/jquery.template.js', function(err, strings) {
+    scan(__dirname + '/../test/scopeTest/jquery.template.js', function (err, strings) {
         assert.deepEqual(strings['none'].sort(), expected.sort(), 'Retrieved expected strings');
         assert.end();
     });
+});
+
+test('scan JS and JSX files with ES.next features', function (assert) {
+    var expected = {
+        esNextFeaturesInJs: [
+            'intl.formatMessage in arrow fn',
+            'intl.formatMessage in const',
+            'intl.formatMessage in static property',
+            'intl.formatMessage in template string'
+        ],
+        esNextFeaturesInJsx: [
+            'Text in FormattedMessage',
+            'intl.formatMessage in const',
+            'intl.formatMessage in method'
+        ]
+    };
+
+    scan(__dirname + '/../test/esNext/*', function (err, strings) {
+        assert.deepEqual(normalize(strings), normalize(expected), 'Retrieved expected strings');
+        assert.end();
+    });
+});
+
+test('parse JS and JSX files with ES.next features', function (assert) {
+    [
+        {fileName: 'esNextFeatures.js', tokens: 161},
+        {fileName: 'reactComponent.jsx', tokens: 522}
+    ].forEach(function (data) {
+        var filePath = __dirname + '/../test/esNext/' + data.fileName;
+        var source = fs.readFileSync(filePath);
+        var tokens = parse(source, filePath);
+        assert.equal(tokens.length, data.tokens, 'Should parse file ' + data.fileName);
+    });
+
+    assert.end();
 });
