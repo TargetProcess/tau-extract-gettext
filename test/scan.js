@@ -137,10 +137,14 @@ test('parse JS and JSX files with ES.next features', function (assert) {
         {fileName: 'esNextFeatures.js', tokens: 161},
         {fileName: 'reactComponent.jsx', tokens: 522}
     ].forEach(function (data) {
-        var filePath = __dirname + '/../test/esNext/' + data.fileName;
-        var source = fs.readFileSync(filePath);
-        var tokens = parse(source, filePath);
-        assert.equal(tokens.length, data.tokens, 'Should parse file ' + data.fileName);
+        var file = __dirname + '/../test/esNext/' + data.fileName;
+        try {
+            var source = fs.readFileSync(file);
+            var tokens = parse(source);
+            assert.equal(tokens.length, data.tokens, 'Should parse file ' + data.fileName);
+        } catch (e) {
+            assert.fail('Cannot parse file ' + file + '. ' + e.name + ': ' + e.message);
+        }
     });
 
     assert.end();
