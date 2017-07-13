@@ -118,7 +118,8 @@ test('scan JS and JSX files with ES.next features', function (assert) {
             'intl.formatMessage in const',
             'intl.formatMessage in static property',
             'intl.formatMessage in template string',
-            'intl.formatMessage in class property method'
+            'intl.formatMessage in class property method',
+            'intl.formatMessage in class property method without braces'
         ],
         esNextFeaturesInJsx: [
             'Text in FormattedMessage',

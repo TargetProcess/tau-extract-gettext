@@ -33,6 +33,8 @@ export class EsClass {
     somePropertyMethod = () => {
         return intl.formatMessage('intl.formatMessage in class property method');
     }
+
+    otherPropertyMethod = () => intl.formatMessage('intl.formatMessage in class property method without braces')
 }
 
 export default spreadFn;
