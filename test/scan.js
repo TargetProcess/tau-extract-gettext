@@ -1,16 +1,16 @@
+/*global __dirname*/
 /*jshint quotmark:false,sub:true*/
 'use strict';
 
-var test = require('tape');
-var _ = require('lodash');
-var fs = require('fs');
-var scan = require('../index.js');
-var parse = require('../lib/parse.js');
+const test = require('tape');
+const _ = require('lodash');
+const fs = require('fs');
+const scan = require('../index.js');
 
-var normalize = stringsPerScope => _.mapValues(stringsPerScope, strings => strings.sort());
+const normalize = stringsPerScope => _.mapValues(stringsPerScope, strings => strings.sort());
 
 test('scan', function (assert) {
-    var expected = {
+    const expected = {
         test_single_comment_in_js_file: [
             '<b>This</b> is a singular tran slation %s',
             'Quick add work and people',
@@ -49,7 +49,7 @@ test('files not found', function (assert) {
 
 test('extract scope', function (assert) {
     scan(__dirname + '/../test/scopeTest/**', function (err, strings) {
-        var expected = {
+        const expected = {
             "scope_for_component": [
                 'string from model',
                 'nested message',
@@ -82,7 +82,7 @@ test('extract scope', function (assert) {
 });
 
 test('scan ES5 JSX file', function (assert) {
-    var expected = [
+    const expected = [
         '(Ex: http://helpdesk.yourdomain.com)',
         '(type the new password if you want to change it)',
         'FormattedMessage message',
@@ -100,7 +100,7 @@ test('scan ES5 JSX file', function (assert) {
 });
 
 test('scan jQuery template file', function (assert) {
-    var expected = [
+    const expected = [
         'Initial Effort',
         'Initial Effort {value}'
     ];
@@ -112,12 +112,13 @@ test('scan jQuery template file', function (assert) {
 });
 
 test('scan JS and JSX files with ES.next features', function (assert) {
-    var expected = {
+    const expected = {
         esNextFeaturesInJs: [
             'intl.formatMessage in arrow fn',
             'intl.formatMessage in const',
             'intl.formatMessage in static property',
-            'intl.formatMessage in template string'
+            'intl.formatMessage in template string',
+            'intl.formatMessage in class property method'
         ],
         esNextFeaturesInJsx: [
             'Text in FormattedMessage',
@@ -130,22 +131,4 @@ test('scan JS and JSX files with ES.next features', function (assert) {
         assert.deepEqual(normalize(strings), normalize(expected), 'Retrieved expected strings');
         assert.end();
     });
-});
-
-test('parse JS and JSX files with ES.next features', function (assert) {
-    [
-        {fileName: 'esNextFeatures.js', tokens: 161},
-        {fileName: 'reactComponent.jsx', tokens: 522}
-    ].forEach(function (data) {
-        var file = __dirname + '/../test/esNext/' + data.fileName;
-        try {
-            var source = fs.readFileSync(file);
-            var tokens = parse(source);
-            assert.equal(tokens.length, data.tokens, 'Should parse file ' + data.fileName);
-        } catch (e) {
-            assert.fail('Cannot parse file ' + file + '. ' + e.name + ': ' + e.message);
-        }
-    });
-
-    assert.end();
 });

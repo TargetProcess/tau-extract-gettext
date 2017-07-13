@@ -29,6 +29,10 @@ export class EsClass {
     someMethod() {
         return `Template string ${intl.formatMessage('intl.formatMessage in template string')}`;
     }
+
+    somePropertyMethod = () => {
+        return intl.formatMessage('intl.formatMessage in class property method');
+    }
 }
 
 export default spreadFn;
