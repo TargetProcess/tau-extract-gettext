@@ -38,6 +38,8 @@
     "url": "https://github.com/TargetProcess/tau-extract-gettext.git"
   },
   "scripts": {
-    "test": "node test/scan.js"
+    "test": "node test/scan.js",
+    "test-tp-performance": "node test/scanTargetprocess.js",
+    "test-sd-conformance": "node test/scanServiceDesk.js"
   }
 }
